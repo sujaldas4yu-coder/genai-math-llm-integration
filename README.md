@@ -27,7 +27,7 @@ Print the result: “Result of multiplication: 1000”.
 Optionally, to get a friendly sentence from the model, add the function’s result to the conversation using the function role and call the model a second time. It then replies with something like “125 multiplied by 8 is 1000.”
 
 ### PROGRAM:
-```
+```python
 import os
 import json
 import openai
