@@ -9,22 +9,22 @@ and the system calculates its volume by invoking a Python function using the fun
 
 ### DESIGN STEPS:
 
-#### STEP 1:
-Write a normal Python function, calculate_cylinder_volume(radius, height), that uses the math library to compute volume = π × radius² × height.
+#### Step 1: Create the function and describe it to the model
 
-Write a JSON schema that tells the model about this function. It gives the function name, a short description, the two parameters (radius and height, both numbers) and marks both as required.
+Write a normal Python function, multiply(a, b), that multiplies two numbers and returns the result in JSON form.
+Write a JSON schema that tells the model about this function. It gives the function name (multiply), a short description (“Multiply two numbers”), the two parameters (a and b, both numbers) and marks both as required.
 
-#### STEP 2:
-Send the user’s prompt (e.g. “Find the volume of a cylinder with radius 5 and height 10”) to the Chat Completions API along with the function schema.
+#### Step 2: Send the user’s question to the model and run the function
 
-The model doesn’t calculate anything. It replies with a function call, containing the function name and the arguments it picked (radius = 5, height = 10).
-Read these arguments from the reply, convert them from a JSON string using json.loads(), and pass them to your own function. Your function returns the volume (785.3982).
+Send the user’s prompt (e.g. “Multiply 125 and 8”) to the Chat Completions API along with the function schema.
+The model doesn’t do the multiplication. It replies with a function call, containing the function name (multiply) and the arguments it picked (a = 125, b = 8).
+Read these arguments from the reply, convert them from a JSON string using json.loads(), and pass them to your own multiply function. Your function returns the result (1000).
 
-#### STEP 3:
-Add the model’s function call and your function’s result to the conversation. The result goes in a message with the function role.
+#### Step 3: Show the final answer
 
-Call the model a second time with this updated conversation.
-The model now writes a friendly final reply, e.g. “The volume of the cylinder is approximately 785.4 cubic units.”
+Convert the function’s JSON result back into a normal Python value using json.loads().
+Print the result: “Result of multiplication: 1000”.
+Optionally, to get a friendly sentence from the model, add the function’s result to the conversation using the function role and call the model a second time. It then replies with something like “125 multiplied by 8 is 1000.”
 
 ### PROGRAM:
 ```
